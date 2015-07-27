@@ -1,0 +1,19 @@
+{
+    "includes": ["_aws"],
+    "services": {
+        "default_settings": {
+            "params": {
+                "endpoint": "http://192.168.12.221:6008",
+                "key": "9b9eff4480f344acb34b81daf3a42e8d",
+                "secret": "10a1854470a642ed889b558ae689872c"
+            }
+        },
+        "cloudfront": {
+            "extends": "cloudfront",
+            "params": {
+                "private_key": "change_me",
+                "key_pair_id": "change_me"
+            }
+        }
+    }
+}
