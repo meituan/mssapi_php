@@ -36,14 +36,6 @@ class MSS_20150510_Test extends \Aws\Tests\IntegrationTestCase
     public static function setUpBeforeClass()
     {
         $bucket = self::getResourcePrefix() . '-s3-test';
-        //$client = self::getMSSclient()
-        //$client = Aws\S3\S3Client::factory([
-        //    'endpoint' => 'http://192.168.12.221:6008',
-        //    'ssl.certificate_authority' => false,
-        //    'key'    => '9b9eff4480f344acb34b81daf3a42e8d',
-        //    'secret' => '10a1854470a642ed889b558ae689872c',
-        //]);
-
         $client = self::getServiceBuilder()->get('s3', true);
 
         // Delete the bucket if it exists

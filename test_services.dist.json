@@ -3,9 +3,9 @@
     "services": {
         "default_settings": {
             "params": {
-                "endpoint": "http://192.168.12.221:6008",
-                "key": "9b9eff4480f344acb34b81daf3a42e8d",
-                "secret": "10a1854470a642ed889b558ae689872c"
+                "endpoint": "http://mtmss.com",
+                "key": "change_me",
+                "secret": "change_me"
             }
         },
         "cloudfront": {
