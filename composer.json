@@ -30,7 +30,10 @@
         "doctrine/cache": "~1.0",
         "monolog/monolog": "~1.4",
         "phpunit/phpunit": "~4.0",
-        "symfony/yaml": "~2.1"
+        "symfony/class-loader": "~2.7",
+        "symfony/yaml": "~2.1",
+        "symfony/event-dispatcher": "2.1.*",
+        "ext-dom": "*"
     },
     "autoload": {
         "psr-0": {
