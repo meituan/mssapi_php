@@ -204,7 +204,7 @@ class ClientBuilder
      * @return AwsClientInterface
      * @throws InvalidArgumentException
      */
-    public function build()
+    public function build($s3_image = null)
     {
         // Resolve configuration
         $config = Collection::fromConfig(
@@ -278,6 +278,8 @@ class ClientBuilder
             $params['command.disable_validation'] = true;
             $config->set('command.params', $params);
         }
+
+        $client->s3_image = $s3_image;
 
         return $client;
     }

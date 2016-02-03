@@ -26,7 +26,7 @@ mtmss.com
 	php composer.phar install
 	make package
 
-## Quick Start
+## Quick Star
 
 ```php	
 	<?php
@@ -37,12 +37,12 @@ mtmss.com
 	# connect
 	$s3 = Aws\S3\S3Client::factory([
 		'endpoint' => 'http://mtmss.com',
+		'image_endpoint' => 'http://image.mtmss.com', # 可选的
 		'key'    => '*',
 		'secret' => '*',
 	]);
 
 	$bucketName = 'testphp';
-	$localFile = 'file';
 
 	# create bucket
 	$s3->createBucket(array('Bucket' => $bucketName));
@@ -64,10 +64,11 @@ mtmss.com
 
 	# put object, upload local file
 	$key2 = 'file2';
+	$localFile = 'filename'; # the file name that you want to put at local
 	$s3->putObject(array(
 		'Bucket' => $bucketName,
 		'Key' => $key2,
-		'SourceFile' => 'file'
+		'SourceFile' => $localFile
 	));
 
 	# delete object
@@ -76,4 +77,19 @@ mtmss.com
 
 	# delete bucket
 	$s3->deleteBucket(array('Bucket' => $bucketName));
+
+    # 当生成对象s3的时候，指定了参数image_endpoint, 则对象s3还可以进行图像处理：包括获取处理后的图片和presignd url
+    $bucketName = 'image-bucket'; # image-bucket已经存在
+    $key = "example.jpg@watermark=2&text=bWVpdHVhbnl1bg=="; # example.jpg已经存在
+    $s3->getImageObject(array(
+        'Bucket' => $bucketName,
+        'Key' => $key,
+        'SaveAs' => 'watermark.jpg',
+    ));
+
+    $timestamp = 1465434602; # need modifyed
+    $imageUrl = $s3->getImageObjectUrl($bucketName, $key, $timestamp);
+    print "$imageUrl\n";
+
+    print "test completed!\n";
 ```

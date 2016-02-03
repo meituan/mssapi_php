@@ -33,7 +33,6 @@ use Aws\S3\Model\MultipartUpload\AbstractTransfer as AbstractMulti;
 use Aws\S3\Model\MultipartUpload\UploadBuilder;
 use Aws\S3\Sync\DownloadSyncBuilder;
 use Aws\S3\Sync\UploadSyncBuilder;
-use Aws\S3\S3ImageClient;
 use Guzzle\Common\Collection;
 use Guzzle\Http\EntityBody;
 use Guzzle\Http\Message\RequestInterface;
@@ -88,7 +87,7 @@ use Guzzle\Service\Resource\ResourceIteratorInterface;
  * @link http://docs.aws.amazon.com/aws-sdk-php/v2/guide/service-s3.html User guide
  * @link http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Aws.S3.S3Client.html API docs
  */
-class S3Client extends AbstractClient
+class S3ImageClient extends AbstractClient
 {
     const LATEST_API_VERSION = '2006-03-01';
 
@@ -135,19 +134,6 @@ class S3Client extends AbstractClient
      */
     public static function factory($config = array())
     {
-        $s3_image = null;
-        # if ($config["image_endpoint"]) {
-        if (array_key_exists("image_endpoint", $config)) {
-            $image_config = $config;
-            $image_config["endpoint"] = $config["image_endpoint"];
-            # if (!array_key_exists("endpoint", $config)) {
-            #     $config["endpoint"] = $config["image_endpoint"];
-            # }
-            unset($config["image_endpoint"]);
-            unset($image_config["image_endpoint"]);
-
-            $s3_image = S3ImageClient::factory($image_config);
-        }
         $exceptionParser = new S3ExceptionParser();
 
         // Configure the custom exponential backoff plugin for retrying S3 specific errors
@@ -191,7 +177,7 @@ class S3Client extends AbstractClient
                     ),
                 )
             ))
-            ->build($s3_image);
+            ->build();
 
         // Use virtual hosted buckets when possible
         $client->addSubscriber(new BucketStyleListener());
@@ -336,31 +322,6 @@ class S3Client extends AbstractClient
         }
 
         return $expires ? $this->createPresignedUrl($request, $expires) : $request->getUrl();
-    }
-
-    /**
-     * Refers to function getObjectUrl's description
-     */
-    public function getImageObjectUrl($bucket, $key, $expires = null, array $args = array())
-    {
-        if ($this->s3_image === null) {
-            throw new RuntimeException ('The s3 client of image is null. You should set the image_endpoint firstly when using function getImageObjectUrl.');
-        }
-
-        return $this->s3_image->getObjectUrl($bucket, $key, $expires, $args);
-    }
-
-    /**
-     * Get the image object, when setting the image_endpoint
-     * @param array $args  Arguments to get image object, includes keys:"Bucket", "Key", "SaveAs"; The three keys are both necessary and case sensitive; Refers to function getObject's description
-     */
-    public function getImageObject($args = array())
-    {
-        if ($this->s3_image === null) {
-            throw new RuntimeException ('The s3 client of image is null. You should set the image_endpoint firstly when using function getImageObject.');
-        }
-
-        $this->s3_image->getObject($args);
     }
 
     /**
