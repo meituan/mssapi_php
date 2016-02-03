@@ -23,6 +23,7 @@ mtmss.com
 
 	# Build the phar and zip, under build/artifacts/
 	curl http://getcomposer.org/installer | php
+    修改php.ini文件, phar.readonly = Off
 	php composer.phar install
 	make package
 
@@ -78,7 +79,7 @@ mtmss.com
 	# delete bucket
 	$s3->deleteBucket(array('Bucket' => $bucketName));
 
-    # 当生成对象s3的时候，指定了参数image_endpoint, 则对象s3还可以进行图像处理：包括获取处理后的图片和presignd url
+    # 当生成对象s3的时候，指定了参数image_endpoint, 则对象s3还可以进行图像处理：包括获取处理后的图片和生成pre signed url
     $bucketName = 'image-bucket'; # image-bucket已经存在
     $key = "example.jpg@watermark=2&text=bWVpdHVhbnl1bg=="; # example.jpg已经存在
     $s3->getImageObject(array(
