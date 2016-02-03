@@ -23,8 +23,8 @@ mtmss.com
 
 	# Build the phar and zip, under build/artifacts/
 	curl http://getcomposer.org/installer | php
-    修改php.ini, 设置phar.readonly = Off
 	php composer.phar install
+    修改/etc/php.ini, 设置phar.readonly = Off
 	make package
 
 ## Quick Start
