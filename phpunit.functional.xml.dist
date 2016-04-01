@@ -20,8 +20,8 @@
     </php>
 
     <testsuites>
-        <testsuite name="Aws">
-            <directory>./tests/Aws/Tests</directory>
+        <testsuite name="Mss">
+            <directory>./tests/Mss/Tests</directory>
         </testsuite>
     </testsuites>
 

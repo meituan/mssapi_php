@@ -19,9 +19,9 @@ Installation Technique     Include Statement
 ========================== =============================================================================================
 Using Composer             ``require '/path/to/vendor/autoload.php';``
 -------------------------- ---------------------------------------------------------------------------------------------
-Using the Phar             ``require '/path/to/aws.phar';``
+Using the Phar             ``require '/path/to/mss.phar';``
 -------------------------- ---------------------------------------------------------------------------------------------
-Using the Zip              ``require '/path/to/aws-autoloader.php';``
+Using the Zip              ``require '/path/to/mss-autoloader.php';``
 ========================== =============================================================================================
 
 For the remainder of this guide, we will show examples that use the Composer installation method. If you are using a
@@ -50,7 +50,7 @@ The easiest way to get up and running quickly is to use the web service client's
     // Include the SDK using the Composer autoloader
     require 'vendor/autoload.php';
 
-    use Aws\S3\S3Client;
+    use Mss\S3\S3Client;
 
     // Instantiate the S3 client using your credential profile
     $s3Client = S3Client::factory(array(
@@ -76,7 +76,7 @@ credentials in the array argument that you provide.
 
 .. code-block:: php
 
-    $ec2Client = \Aws\Ec2\Ec2Client::factory(array(
+    $ec2Client = \Mss\Ec2\Ec2Client::factory(array(
         'profile' => 'my_profile',
         'region'  => 'us-east-1',
     ));
@@ -87,17 +87,17 @@ please see the appropriate :ref:`service-specific guide <supported-services>`.
 Service builder
 ~~~~~~~~~~~~~~~
 
-Another way to instantiate a service client is using the ``Aws\Common\Aws`` object (a.k.a the **service builder**).
-The ``Aws`` object is essentially a `service locator <http://en.wikipedia.org/wiki/Service_locator_pattern>`_, and
+Another way to instantiate a service client is using the ``Mss\Common\Mss`` object (a.k.a the **service builder**).
+The ``Mss`` object is essentially a `service locator <http://en.wikipedia.org/wiki/Service_locator_pattern>`_, and
 allows you to specify credentials and configuration settings such that they can be shared across all client instances.
-Also, every time you fetch a client object from the ``Aws`` object, it will be exactly the same instance.
+Also, every time you fetch a client object from the ``Mss`` object, it will be exactly the same instance.
 
 .. code-block:: php
 
-    use Aws\Common\Aws;
+    use Mss\Common\Mss;
 
     // Create a service locator using a configuration file
-    $aws = Aws::factory(array(
+    $aws = Mss::factory(array(
         'profile' => 'my_profile',
         'region'  => 'us-east-1',
     ));
@@ -111,12 +111,12 @@ Also, every time you fetch a client object from the ``Aws`` object, it will be e
     assert('$s3Client === $anotherS3Client');
 
 You can also declare your credentials and settings in a **configuration file**, and provide the path to that file (in
-either php or json format) when you instantiate the ``Aws`` object.
+either php or json format) when you instantiate the ``Mss`` object.
 
 .. code-block:: php
 
-    // Create a `Aws` object using a configuration file
-    $aws = Aws::factory('/path/to/config.php');
+    // Create a `Mss` object using a configuration file
+    $aws = Mss::factory('/path/to/config.php');
 
     // Get the client from the service locator by namespace
     $s3Client = $aws->get('s3');
@@ -160,8 +160,8 @@ When you preform an operation, and it succeeds, it will return a modeled respons
 request, then an exception is thrown. For this reason, you should use ``try``/``catch`` blocks around your operations if
 you need to handle errors in your code. The SDK throws service-specific exceptions when a server-side error occurs.
 
-In the following example, the ``Aws\S3\S3Client`` is used. If there is an error, the exception thrown will be of the
-type: ``Aws\S3\Exception\S3Exception``.
+In the following example, the ``Mss\S3\S3Client`` is used. If there is an error, the exception thrown will be of the
+type: ``Mss\S3\Exception\S3Exception``.
 
 .. code-block:: php
 
@@ -169,16 +169,16 @@ type: ``Aws\S3\Exception\S3Exception``.
         $s3Client->createBucket(array(
             'Bucket' => 'my-bucket'
         ));
-    } catch (\Aws\S3\Exception\S3Exception $e) {
+    } catch (\Mss\S3\Exception\S3Exception $e) {
         // The AWS error code (e.g., )
-        echo $e->getAwsErrorCode() . "\n";
+        echo $e->getMssErrorCode() . "\n";
         // The bucket couldn't be created
         echo $e->getMessage() . "\n";
     }
 
 Exceptions thrown by the SDK, like in the preceding example, all extend the ``ServiceResponseException`` class (`see
-the API docs <http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Aws.Common.Exception.ServiceResponseException.html>`_),
-which has some custom methods that might help you discover what went wrong. This includes the ``getAwsErrorCode()``
+the API docs <http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Mss.Common.Exception.ServiceResponseException.html>`_),
+which has some custom methods that might help you discover what went wrong. This includes the ``getMssErrorCode()``
 method, that gives you the custom error code that can be used to explain the error.
 
 Waiters

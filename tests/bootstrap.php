@@ -30,7 +30,7 @@ if (get_cfg_var('aws_phar')) {
 
 // Include the composer autoloader
 $loader = require dirname(__DIR__) . '/vendor/autoload.php';
-$loader->add('Aws\\Test', __DIR__);
+$loader->add('Mss\\Test', __DIR__);
 
 // Register services with the GuzzleTestCase
 Guzzle\Tests\GuzzleTestCase::setMockBasePath(__DIR__ . '/mock');
@@ -54,7 +54,7 @@ if (!isset($_SERVER['PREFIX']) || $_SERVER['PREFIX'] == 'hostname') {
 }
 
 // Instantiate the service builder
-$aws = Aws\Common\Aws::factory(isset($_SERVER['CONFIG']) ? $_SERVER['CONFIG'] : __DIR__ . '/../test_services.dist.json');
+$aws = Mss\Common\Mss::factory(isset($_SERVER['CONFIG']) ? $_SERVER['CONFIG'] : __DIR__ . '/../test_services.dist.json');
 
 // Turn on wire logging if configured
 $aws->getEventDispatcher()->addListener('service_builder.create_client', function (\Guzzle\Common\Event $event) {

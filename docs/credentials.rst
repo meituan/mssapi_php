@@ -110,7 +110,7 @@ abstraction layer over various cache backends, including Doctrine Cache, Zend Fr
     $cacheAdapter = new DoctrineCacheAdapter(new FilesystemCache('/tmp/cache'));
 
     // Provide a credentials.cache to cache credentials to the file system
-    $s3Client = Aws\S3\S3Client::factory(array(
+    $s3Client = Mss\S3\S3Client::factory(array(
         'credentials.cache' => $cacheAdapter
     ));
 
@@ -185,7 +185,7 @@ referenced from an SDK configuration file, or when you are instantiating a clien
 
     <?php
 
-    use Aws\DynamoDb\DynamoDbClient;
+    use Mss\DynamoDb\DynamoDbClient;
 
     // Instantiate a client with the credentials from the project1 profile
     $dynamoDbClient = DynamoDbClient::factory(array(
@@ -250,12 +250,12 @@ After creating and saving the configuration file, you need to instantiate a serv
 
     <?php
 
-    use Aws\Common\Aws;
+    use Mss\Common\Mss;
 
     // Create the AWS service builder, providing the path to the config file
-    $aws = Aws::factory('/path/to/custom/config.php');
+    $aws = Mss::factory('/path/to/custom/config.php');
 
-At this point, you can now create clients using the ``get()`` method of the ``Aws`` object:
+At this point, you can now create clients using the ``get()`` method of the ``Mss`` object:
 
 .. code-block:: php
 
@@ -273,7 +273,7 @@ client object.
 
     <?php
 
-    use Aws\S3\S3Client;
+    use Mss\S3\S3Client;
 
     // Instantiate the S3 client with your AWS credentials
     $s3Client = S3Client::factory(array(
@@ -290,8 +290,8 @@ access keys separately.
 
     <?php
 
-    use Aws\S3\S3Client;
-    use Aws\Common\Credentials\Credentials;
+    use Mss\S3\S3Client;
+    use Mss\Common\Credentials\Credentials;
 
     $credentials = new Credentials('YOUR_ACCESS_KEY', 'YOUR_SECRET_KEY');
 
@@ -324,7 +324,7 @@ Getting temporary credentials
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 AWS STS has several operations that return temporary credentials, but the ``GetSessionToken`` operation is the simplest
-for demonstration purposes. Assuming you have an instance of ``Aws\Sts\StsClient`` stored in the ``$stsClient``
+for demonstration purposes. Assuming you have an instance of ``Mss\Sts\StsClient`` stored in the ``$stsClient``
 variable, this is how you call it:
 
 .. code-block:: php
@@ -357,7 +357,7 @@ from AWS STS directly.
 
 .. code-block:: php
 
-    use Aws\S3\S3Client;
+    use Mss\S3\S3Client;
 
     $result = $stsClient->getSessionToken();
 
@@ -373,8 +373,8 @@ You can also construct a ``Credentials`` object and use that when instantiating 
 
 .. code-block:: php
 
-    use Aws\Common\Credentials\Credentials;
-    use Aws\S3\S3Client;
+    use Mss\Common\Credentials\Credentials;
+    use Mss\S3\S3Client;
 
     $result = $stsClient->getSessionToken();
 

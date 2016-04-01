@@ -30,12 +30,12 @@ mtmss.com
 
 ```php	
 	<?php
-	require '/path/to/aws.phar';
+	require '/path/to/mss.phar';
 	# e.g
-	# require __DIR__ . '/mssapi_php/build/artifacts/aws.phar';
+	# require __DIR__ . '/mssapi_php/build/artifacts/mss.phar';
 
 	# connect
-	$s3 = Aws\S3\S3Client::factory([
+	$s3 = Mss\S3\S3Client::factory([
 		'endpoint' => 'http://mtmss.com',
 		'key'    => '*',
 		'secret' => '*',

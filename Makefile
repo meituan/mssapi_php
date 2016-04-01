@@ -44,8 +44,8 @@ check_tag:
 tag: check_tag
 	@echo Tagging $(TAG)
 	chag update $(TAG)
-	sed -i '' -e "s/VERSION = '.*'/VERSION = '$(TAG)'/" src/Aws/Common/Aws.php
-	php -l src/Aws/Common/Aws.php
+	sed -i '' -e "s/VERSION = '.*'/VERSION = '$(TAG)'/" src/Mss/Common/Mss.php
+	php -l src/Mss/Common/Mss.php
 	git commit -a -m '$(TAG) release'
 	chag tag
 	@echo "Release has been created. Push using 'make release'"

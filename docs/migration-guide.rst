@@ -78,8 +78,8 @@ Namespaces
 
 The SDK's directory structure and namespaces are organized according to `PSR-0 standards
 <https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md>`_, making the SDK inherently modular. The
-``Aws\Common`` namespace contains the core code of the SDK, and each service client is contained in its own separate
-namespace (e.g., ``Aws\DynamoDb``).
+``Mss\Common`` namespace contains the core code of the SDK, and each service client is contained in its own separate
+namespace (e.g., ``Mss\DynamoDb``).
 
 Coding Standards
 ~~~~~~~~~~~~~~~~
@@ -105,7 +105,7 @@ behavior.
 
 .. code-block:: php
 
-    $dynamodb = Aws\DynamoDb\DynamoDbClient::factory(array(
+    $dynamodb = Mss\DynamoDb\DynamoDbClient::factory(array(
         'credentials' => array(
             'key'    => 'your-aws-access-key-id',
             'secret' => 'your-aws-secret-access-key',
@@ -123,7 +123,7 @@ SDK.)
 
 .. code-block:: php
 
-    $aws = Aws\Common\Aws::factory('/path/to/custom/config.php');
+    $aws = Mss\Common\Mss::factory('/path/to/custom/config.php');
     $s3 = $aws->get('s3');
 
 This technique is the preferred way for instantiating service clients. Your ``config.php`` might look similar to the
@@ -254,7 +254,7 @@ handle potential errors. The following is an example of how to handle the respon
             $result->getPath('Table/ProvisionedThroughput/ReadCapacityUnits'),
             $result->getPath('Table/ProvisionedThroughput/WriteCapacityUnits')
         );
-    } catch (Aws\DynamoDb\Exception\DynamoDbException $e) {
+    } catch (Mss\DynamoDb\Exception\DynamoDbException $e) {
         echo "Error describing table {$tableName}";
     }
 
@@ -275,7 +275,7 @@ You can also get the response object and status code from the exception if one i
             'TableName' => $tableName
         ));
         $statusCode = $command->getResponse()->getStatusCode();
-    } catch (Aws\DynamoDb\Exception\DynamoDbException $e) {
+    } catch (Mss\DynamoDb\Exception\DynamoDbException $e) {
         $statusCode = $e->getResponse()->getStatusCode();
     }
 
@@ -339,10 +339,10 @@ From Version 2 of the SDK
 
     require '/path/to/vendor/autoload.php';
 
-    use Aws\Common\Aws;
-    use Aws\S3\Exception\S3Exception;
+    use Mss\Common\Mss;
+    use Mss\S3\Exception\S3Exception;
 
-    $aws = Aws::factory('/path/to/config.php');
+    $aws = Mss::factory('/path/to/config.php');
     $s3 = $aws->get('s3');
 
     try {
@@ -449,9 +449,9 @@ From Version 2 of the SDK
 
     require '/path/to/vendor/autoload.php';
 
-    use Aws\Common\Aws;
+    use Mss\Common\Mss;
 
-    $aws = Aws::factory('/path/to/config.php');
+    $aws = Mss::factory('/path/to/config.php');
     $dynamodb = $aws->get('dynamodb');
 
     // Create a ScanIterator and setup the parameters for the DynamoDB Scan operation

@@ -67,27 +67,27 @@ Without Composer
 Without Composer, you must manage your own project dependencies.
 
 #. Download both of the SDKs (via PEAR, GitHub, or the AWS website) into a location accessible by your project. Make
-   certain to use the pre-packaged ``aws.phar`` file, which includes all of the dependencies for the AWS SDK for PHP.
+   certain to use the pre-packaged ``mss.phar`` file, which includes all of the dependencies for the AWS SDK for PHP.
 
 #. In your code's bootstrap process, you need to explicitly require the bootstrap file from Version 1 of the SDK and the
-   ``aws.phar`` file containing Version 2 of the SDK:
+   ``mss.phar`` file containing Version 2 of the SDK:
 
    .. code-block:: php
 
         // Include each of the SDK's bootstrap files to setup autoloading
         require '/path/to/sdk.class.php'; // Load the Version 1 bootstrap file
-        require '/path/to/aws.phar';      // Load the Version 2 pre-packaged phar file
+        require '/path/to/mss.phar';      // Load the Version 2 pre-packaged phar file
 
 Configuring and Instantiating the SDKs
 --------------------------------------
 
 How you configure and instantiate the SDKs is determined by whether or not you are using the service builder
-(``Aws\Common\Aws`` class).
+(``Mss\Common\Mss`` class).
 
 Instantiating Clients via the Service Builder
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The service builder (``Aws\Common\Aws class``) in the AWS SDK for PHP enables configuring all service clients with the
+The service builder (``Mss\Common\Mss class``) in the AWS SDK for PHP enables configuring all service clients with the
 same credentials. It also accepts additional settings for some or all of the clients. The service builder functionality
 is inherited from the `Guzzle <http://guzzlephp.org>`_ project.
 
@@ -122,10 +122,10 @@ file. Your code then retrieves instances of the specific service clients from th
 
 .. code-block:: php
 
-    use Aws\Common\Aws;
+    use Mss\Common\Mss;
 
     // Instantiate the service builder
-    $aws = Aws::factory('/path/to/your/config.php');
+    $aws = Mss::factory('/path/to/your/config.php');
 
     // Instantiate S3 clients via the service builder
     $s3v1 = $aws->get('v1.s3');  // All Version 1 clients are prefixed with "v1."
@@ -139,7 +139,7 @@ configuration data, including your credentials. The ``factory()`` will work for 
 
 .. code-block:: php
 
-    use Aws\S3\S3Client;
+    use Mss\S3\S3Client;
 
     // Create an array of configuration options
     $config = array(
@@ -155,7 +155,7 @@ Optionally, you could alias the classes to make it clearer which version of the 
 .. code-block:: php
 
     use AmazonS3 as S3ClientV1;
-    use Aws\S3\S3Client as S3ClientV2;
+    use Mss\S3\S3Client as S3ClientV2;
 
     $config = array(
         'key'    => 'your-aws-access-key-id',
@@ -183,7 +183,7 @@ client from the first PHP SDK.
 
     require 'vendor/autoload.php';
 
-    $aws = Aws\Common\Aws::factory('/path/to/config.json');
+    $aws = Mss\Common\Mss::factory('/path/to/config.json');
 
     $s3v1 = $aws->get('v1.s3');
     $s3v2 = $aws->get('s3');
@@ -207,7 +207,7 @@ client from the first PHP SDK.
         foreach ($result['Buckets'] as $bucket) {
             echo "- {$bucket['Name']}\n";
         }
-    } catch (Aws\S3\Exception\S3Exception $e) {
+    } catch (Mss\S3\Exception\S3Exception $e) {
         echo "Request failed.\n";
     }
     echo "\n";
@@ -226,7 +226,7 @@ client. It then uses the SNS client from the first SDK to publish a message to i
 
     require 'vendor/autoload.php';
 
-    $aws = Aws\Common\Aws::factory('/path/to/config.php');
+    $aws = Mss\Common\Mss::factory('/path/to/config.php');
 
     // Instantiate the clients
     $ddb = $aws->get('dynamodb');

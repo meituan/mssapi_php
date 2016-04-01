@@ -47,7 +47,7 @@ below.
 Enabling and Using Client Facades
 ---------------------------------
 
-To enable static client facades to be used in your application, you must use the ``Aws\Common\Aws::enableFacades``
+To enable static client facades to be used in your application, you must use the ``Mss\Common\Mss::enableFacades``
 method when you setup the service builder.
 
 .. code-block:: php
@@ -56,7 +56,7 @@ method when you setup the service builder.
     require 'vendor/autoload.php';
 
     // Instantiate the SDK service builder with my config and enable facades
-    $aws = Aws::factory('/path/to/my_config.php')->enableFacades();
+    $aws = Mss::factory('/path/to/my_config.php')->enableFacades();
 
 This will setup the client facades and alias them into the global namespace. After that, you can use them anywhere to
 have more simple and expressive code for interacting with AWS services.
@@ -88,7 +88,7 @@ client facades available in the "Services" namespace, then you could do the foll
 
 .. code-block:: php
 
-    Aws::factory('/path/to/my_config.php')->enableFacades('Services');
+    Mss::factory('/path/to/my_config.php')->enableFacades('Services');
 
     $result = Services\DynamoDb::listTables();
 
@@ -97,14 +97,14 @@ The client facades that are available are determined by what is in your service 
 of the clients should be accessible from the service builder instance and client facades (once enabled) by default.
 
 Based on the following excerpt from the default configuration file (located at
-``src/Aws/Common/Resources/aws-config.php``):
+``src/Mss/Common/Resources/mss-config.php``):
 
 .. code-block:: php
 
     's3' => array(
         'alias'   => 'S3',
         'extends' => 'default_settings',
-        'class'   => 'Aws\S3\S3Client'
+        'class'   => 'Mss\S3\S3Client'
     ),
 
 The ``'class'`` key indicates the client class that the static client facade will proxy to, and the ``'alias'`` key
@@ -128,7 +128,7 @@ showing how this is done:
 
     <?php
 
-    use Aws\Common\Aws;
+    use Mss\Common\Mss;
     use Guzzle\Service\Resource\Model;
     use YourApp\Things\FileBrowser;
 
@@ -138,14 +138,14 @@ showing how this is done:
 
         public function setUp()
         {
-            $this->serviceBuilder = Aws::factory();
+            $this->serviceBuilder = Mss::factory();
             $this->serviceBuilder->enableFacades();
         }
 
         public function testCanDoSomethingWithYourAppsFileBrowserClass()
         {
             // Mock the ListBuckets method of S3 client
-            $mockS3Client = $this->getMockBuilder('Aws\S3\S3Client')
+            $mockS3Client = $this->getMockBuilder('Mss\S3\S3Client')
                 ->disableOriginalConstructor()
                 ->getMock();
             $mockS3Client->expects($this->any())

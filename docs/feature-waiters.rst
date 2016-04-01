@@ -7,7 +7,7 @@ Introduction
 
 .. include:: _snippets/waiters-intro.txt
 
-If the Waiter has to poll the bucket too many times, it will throw an ``Aws\Common\Exception\RuntimeException``
+If the Waiter has to poll the bucket too many times, it will throw an ``Mss\Common\Exception\RuntimeException``
 exception.
 
 Basic Configuration
@@ -80,7 +80,7 @@ Custom Waiters
 It is possible to implement custom Waiter objects if your use case requires application-specific Waiter logic or Waiters
 that are not yet supported by the SDK. You can use the ``getWaiterFactory()`` and ``setWaiterFactory()`` methods on the
 client to manipulate the Waiter factory used by the client such that your custom Waiter can be instantiated. By default
-the service clients use a ``Aws\Common\Waiter\CompositeWaiterFactory`` which allows you to add additional factories if
+the service clients use a ``Mss\Common\Waiter\CompositeWaiterFactory`` which allows you to add additional factories if
 needed. The following example shows how to implement a contrived custom Waiter class and then modify a client's Waiter
 factory such that it can create instances of the custom Waiter.
 
@@ -88,7 +88,7 @@ factory such that it can create instances of the custom Waiter.
 
     namespace MyApp\FakeWaiters
     {
-        use Aws\Common\Waiter\AbstractResourceWaiter;
+        use Mss\Common\Waiter\AbstractResourceWaiter;
 
         class SleptThreeTimes extends AbstractResourceWaiter
         {
@@ -107,8 +107,8 @@ factory such that it can create instances of the custom Waiter.
 
     namespace
     {
-        use Aws\S3\S3Client;
-        use Aws\Common\Waiter\WaiterClassFactory;
+        use Mss\S3\S3Client;
+        use Mss\Common\Waiter\WaiterClassFactory;
 
         $s3Client = S3Client::factory();
 
@@ -132,11 +132,11 @@ The Waiters that are included in the SDK are defined in the service description 
 using a configuration DSL (domain-specific language) that describes the default wait intervals, wait conditions, and
 how to check or poll the resource to resolve the condition.
 
-This data is automatically consumed and used by the ``Aws\Common\Waiter\WaiterConfigFactory`` class when a client is
+This data is automatically consumed and used by the ``Mss\Common\Waiter\WaiterConfigFactory`` class when a client is
 instantiated so that the waiters defined in the service description are available to the client.
 
 The following is an excerpt of the Amazon Glacier service description that defines the Waiters provided by
-``Aws\Glacier\GlacierClient``.
+``Mss\Glacier\GlacierClient``.
 
 .. code-block:: php
 
