@@ -136,7 +136,6 @@ class S3Client extends AbstractClient
     public static function factory($config = array())
     {
         $s3_image = null;
-        # if ($config["image_endpoint"]) {
         if (array_key_exists("image_endpoint", $config)) {
             $image_config = $config;
             $image_config["endpoint"] = $config["image_endpoint"];
@@ -146,7 +145,7 @@ class S3Client extends AbstractClient
             unset($config["image_endpoint"]);
             unset($image_config["image_endpoint"]);
 
-            $s3_image = S3ImageClient::factory($image_config);
+            $s3_image = S3Client::factory($image_config);
         }
         $exceptionParser = new S3ExceptionParser();
 
