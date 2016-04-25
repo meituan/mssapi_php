@@ -33,7 +33,6 @@ use Aws\S3\Model\MultipartUpload\AbstractTransfer as AbstractMulti;
 use Aws\S3\Model\MultipartUpload\UploadBuilder;
 use Aws\S3\Sync\DownloadSyncBuilder;
 use Aws\S3\Sync\UploadSyncBuilder;
-use Aws\S3\S3ImageClient;
 use Guzzle\Common\Collection;
 use Guzzle\Http\EntityBody;
 use Guzzle\Http\Message\RequestInterface;
