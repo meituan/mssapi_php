@@ -1,5 +1,5 @@
 {
-    "includes": ["_aws"],
+    "includes": ["_mss"],
     "services": {
         "default_settings": {
             "params": {

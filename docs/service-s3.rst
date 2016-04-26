@@ -10,7 +10,7 @@ guide.
 
 If you run the above code example unaltered, you'll probably trigger the following exception::
 
-    PHP Fatal error:  Uncaught Aws\S3\Exception\BucketAlreadyExistsException: AWS Error
+    PHP Fatal error:  Uncaught Mss\S3\Exception\BucketAlreadyExistsException: AWS Error
     Code: BucketAlreadyExists, Status Code: 409, AWS Request ID: D94E6394791E98A4,
     AWS Error Type: client, AWS Error Message: The requested bucket name is not
     available. The bucket namespace is shared by all users of the system. Please select
@@ -142,8 +142,8 @@ easier to upload large files using multipart upload.
 
 .. code-block:: php
 
-    use Aws\Common\Exception\MultipartUploadException;
-    use Aws\S3\Model\MultipartUpload\UploadBuilder;
+    use Mss\Common\Exception\MultipartUploadException;
+    use Mss\S3\Model\MultipartUpload\UploadBuilder;
 
     $uploader = UploadBuilder::newInstance()
         ->setClient($client)
@@ -177,7 +177,7 @@ object has been uploaded.
         ->setConcurrency(3)
         ->build();
 
-You can use the ``Aws\S3\S3Client::upload()`` method if you just want to upload files and not worry if they are too
+You can use the ``Mss\S3\S3Client::upload()`` method if you just want to upload files and not worry if they are too
 large to send in a single PutObject operation or require a multipart upload.
 
 .. code-block:: php
@@ -200,13 +200,13 @@ You can specify a canned ACL on an object when uploading:
 
 You can specify more complex ACLs using the ``ACP`` parameter when sending PutObject, CopyObject, CreateBucket,
 CreateMultipartUpload, PutBucketAcl, PutObjectAcl, and other operations that accept a canned ACL. Using the ``ACP``
-parameter allows you specify more granular access control policies using a ``Aws\S3\Model\Acp`` object. The easiest
-way to create an Acp object is through the ``Aws\S3\Model\AcpBuilder``.
+parameter allows you specify more granular access control policies using a ``Mss\S3\Model\Acp`` object. The easiest
+way to create an Acp object is through the ``Mss\S3\Model\AcpBuilder``.
 
 .. code-block:: php
 
-    use Aws\S3\Enum\Group;
-    use Aws\S3\Model\AcpBuilder;
+    use Mss\S3\Enum\Group;
+    use Mss\S3\Model\AcpBuilder;
 
     $acp = AcpBuilder::newInstance()
         ->setOwner($myOwnerId)
@@ -294,7 +294,7 @@ control the transfer.
 =========== ============================================================================================================
 params      Array of parameters to use with each ``PutObject`` or ``CreateMultipartUpload`` operation performed during
             the transfer. For example, you can specify an ``ACL`` key to change the ACL of each uploaded object.
-            See `PutObject <http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Aws.S3.S3Client.html#_putObject>`_
+            See `PutObject <http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Mss.S3.S3Client.html#_putObject>`_
             for a list of available options.
 base_dir    Base directory to remove from each object key. By default, the ``$directory`` passed into the
             ``uploadDirectory()`` method will be removed from each object key.
@@ -323,7 +323,7 @@ transferred.
 More control with the UploadSyncBuilder
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``uploadDirectory()`` method is an abstraction layer over the much more powerful ``Aws\S3\Sync\UploadSyncBuilder``.
+The ``uploadDirectory()`` method is an abstraction layer over the much more powerful ``Mss\S3\Sync\UploadSyncBuilder``.
 You can use an ``UploadSyncBuilder`` object directly if you need more control over the transfer. Using an
 ``UploadSyncBuilder`` allows for the following advanced features:
 
@@ -332,12 +332,12 @@ You can use an ``UploadSyncBuilder`` object directly if you need more control ov
 * Can specify a custom ``\Iterator`` object to use to yield files to an ``UploadSync`` object. This can be used, for
   example, to filter out which files are transferred even further using something like the
   `Symfony 2 Finder component <http://symfony.com/doc/master/components/finder.html>`_.
-* Can specify the ``Aws\S3\Sync\FilenameConverterInterface`` objects used to convert Amazon S3 object names to local
+* Can specify the ``Mss\S3\Sync\FilenameConverterInterface`` objects used to convert Amazon S3 object names to local
   filenames and vice versa. This can be useful if you require files to be renamed in a specific way.
 
 .. code-block:: php
 
-    use Aws\S3\Sync\UploadSyncBuilder;
+    use Mss\S3\Sync\UploadSyncBuilder;
 
     UploadSyncBuilder::getInstance()
         ->setClient($client)
@@ -352,7 +352,7 @@ Downloading a bucket to a directory
 
 You can download the objects stored in an Amazon S3 bucket using features similar to the ``uploadDirectory()`` method
 and the ``UploadSyncBuilder``. You can download the entire contents of a bucket using the
-``Aws\S3\S3Client::downloadBucket()`` method.
+``Mss\S3\S3Client::downloadBucket()`` method.
 
 The following example will download all of the objects from ``my-bucket`` and store them in ``/local/directory``.
 Object keys that are under virtual subfolders are converted into a nested directory structure when downloading the
@@ -379,7 +379,7 @@ control the transfer.
 
 =============== ============================================================================================================
 params          Array of parameters to use with each ``GetObject`` operation performed during the transfer. See
-                `GetObject <http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Aws.S3.S3Client.html#_getObject>`_
+                `GetObject <http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Mss.S3.S3Client.html#_getObject>`_
                 for a list of available options.
 base_dir        Base directory to remove from each object key when downloading. By default, the entire object key is
                 used to determine the path to the file on the local filesystem.
@@ -395,18 +395,18 @@ More control with the DownloadSyncBuilder
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``downloadBucket()`` method is an abstraction layer over the much more powerful
-``Aws\S3\Sync\DownloadSyncBuilder``. You can use a ``DownloadSyncBuilder`` object directly if you need more control
+``Mss\S3\Sync\DownloadSyncBuilder``. You can use a ``DownloadSyncBuilder`` object directly if you need more control
 over the transfer. Using the ``DownloadSyncBuilder`` allows for the following advanced features:
 
 * Can download only files that match a regular expression
 * Just like the ``UploadSyncBuilder``, you can specify a custom ``\Iterator`` object to use to yield files to a
   ``DownloadSync`` object.
-* Can specify the ``Aws\S3\Sync\FilenameConverterInterface`` objects used to convert Amazon S3 object names to local
+* Can specify the ``Mss\S3\Sync\FilenameConverterInterface`` objects used to convert Amazon S3 object names to local
   filenames and vice versa.
 
 .. code-block:: php
 
-    use Aws\S3\Sync\DownloadSyncBuilder;
+    use Mss\S3\Sync\DownloadSyncBuilder;
 
     DownloadSyncBuilder::getInstance()
         ->setClient($client)

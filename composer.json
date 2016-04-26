@@ -1,6 +1,6 @@
 {
-    "name": "aws/aws-sdk-php",
-    "homepage": "http://aws.amazon.com/sdkforphp",
+    "name": "mss/mss-sdk-php",
+    "homepage": "http://mtmss.com",
     "description": "AWS SDK for PHP - Use Amazon Web Services in your PHP project",
     "keywords": ["aws","amazon","sdk","s3","ec2","dynamodb","cloud","glacier"],
     "type": "library",
@@ -8,12 +8,12 @@
     "authors": [
         {
             "name": "Amazon Web Services",
-            "homepage": "http://aws.amazon.com"
+            "homepage": "http://mtmss.com"
         }
     ],
     "support": {
         "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
-        "issues": "https://github.com/aws/aws-sdk-php/issues"
+        "issues": "https://github.com/mss/mss-sdk-php/issues"
     },
     "require": {
         "php": ">=5.3.3",
@@ -24,7 +24,7 @@
         "ext-apc": "Allows service description opcode caching, request and response caching, and credentials caching",
         "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
         "monolog/monolog": "Adds support for logging HTTP requests and responses",
-        "symfony/yaml": "Eases the ability to write manifests for creating jobs in AWS Import/Export"
+        "symfony/yaml": "Eases the ability to write manifests for creating jobs in MSS Import/Export"
     },
     "require-dev": {
         "doctrine/cache": "~1.0",
@@ -37,7 +37,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Aws": "src/"
+            "Mss": "src/"
         }
     },
     "extra": {

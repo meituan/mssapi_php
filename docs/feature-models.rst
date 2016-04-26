@@ -104,8 +104,8 @@ be different depending on which operation you've performed.
 
 The SDK's API docs are the best resource for discovering what the model object will contain for a given operation. The
 API docs contain a full specification of the data in the response model under the *Returns* section of the docs for an
-operation (e.g., `S3 GetObject operation <http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Aws.S3.S3Client.html#_getObject>`_,
-`EC2 RunInstances operation <http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Aws.Ec2.Ec2Client.html#_runInstances>`_).
+operation (e.g., `S3 GetObject operation <http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Mss.S3.S3Client.html#_getObject>`_,
+`EC2 RunInstances operation <http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Mss.Ec2.Ec2Client.html#_runInstances>`_).
 
 From within your code you can convert the response model directly into an array using the ``toArray()`` method. If you
 are doing some debugging in your code, you could use ``toArray()`` in conjunction with ``print_r()`` to print out a
@@ -118,7 +118,7 @@ simple representation of the response data.
 
 You can also examine the service description for a service, which is located in the ``Resources`` directory within a
 given client's namespace directory. For example, here is a snippet from the SQS service description (located in
-``src/Aws/Sqs/Resources/``) that shows the schema for the response of the ``SendMessage`` operation.
+``src/Mss/Sqs/Resources/``) that shows the schema for the response of the ``SendMessage`` operation.
 
 .. code-block:: php
 

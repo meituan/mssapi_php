@@ -30,7 +30,7 @@ The first step is to instantiate the Amazon DynamoDB client and register the ses
 
     require 'vendor/autoload.php';
 
-    use Aws\DynamoDb\DynamoDbClient;
+    use Mss\DynamoDb\DynamoDbClient;
 
     $dynamoDb = DynamoDbClient::factory(array('region' => '<region name>'));
 
@@ -44,8 +44,8 @@ You can also instantiate the ``SessionHandler`` object directly using it's ``fac
 
     require 'vendor/autoload.php';
 
-    use Aws\DynamoDb\DynamoDbClient;
-    use Aws\DynamoDb\Session\SessionHandler;
+    use Mss\DynamoDb\DynamoDbClient;
+    use Mss\DynamoDb\Session\SessionHandler;
 
     $dynamoDb = DynamoDbClient::factory(array(
         'region' => '<region name>',
@@ -246,8 +246,8 @@ something like the following:
 
     require 'vendor/autoload.php';
 
-    use Aws\DynamoDb\DynamoDbClient;
-    use Aws\DynamoDb\Session\SessionHandler;
+    use Mss\DynamoDb\DynamoDbClient;
+    use Mss\DynamoDb\Session\SessionHandler;
 
     $dynamoDb = DynamoDbClient::factory(array(
         'region' => '<region name>',

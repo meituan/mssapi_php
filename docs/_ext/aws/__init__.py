@@ -36,8 +36,8 @@ class ServiceDescription():
 
     def determine_filename(self):
         """Determines the filename to load for a service"""
-        # Determine the path to the aws-config
-        path = os.path.abspath("../src/Aws/Common/Resources/aws-config.php")
+        # Determine the path to the mss-config
+        path = os.path.abspath("../src/Mss/Common/Resources/mss-config.php")
         self.config = self.__load_php(path)
 
         # Iterate over the loaded dictionary and see if a matching service exists
@@ -137,7 +137,7 @@ class ServiceDescriptionDirective(Directive):
 
     def get_api_ref_url(self, namespace):
         """Determine the PHP API documentation link for a service"""
-        return "http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Aws." + namespace + "." + namespace + "Client.html"
+        return "http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Mss." + namespace + "." + namespace + "Client.html"
 
     def get_locator_name(self, name):
         """Determine the service locator name for an endpoint"""
@@ -279,7 +279,7 @@ class ExampleDirective(Directive):
             return example_cache[key]
 
         # Not cached, so index the example file functions
-        path = os.path.abspath(__file__ + "/../../../../tests/Aws/Tests/" + example_file)
+        path = os.path.abspath(__file__ + "/../../../../tests/Mss/Tests/" + example_file)
 
         f = open(path, 'r')
         in_example = False
