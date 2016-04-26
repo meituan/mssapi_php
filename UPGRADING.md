@@ -15,7 +15,7 @@ If you would like to continue using the old 2014-11-11 previewAPI, you can
 configure this when you instantiate the `LambdaClient`:
 
 ```php
-use Aws\Lambda\LambdaClient;
+use Mss\Lambda\LambdaClient;
 
 $client = LambdaClient::factory(array(
     'version' => '2014-11-11',
@@ -29,14 +29,14 @@ In preparation for Version 3 of the AWS SDK for PHP:
 
 * We marked all of the "facade" classes and methods as deprecated, since they
   will be removed.
-* We added the `getAwsErrorCode()`, `getAwsErrorType()` and `getAwsRequestId()`
+* We added the `getMssErrorCode()`, `getMssErrorType()` and `getMssRequestId()`
   methods to the `ServiceResponseException` to be forward-compatible with
-  Version 3's `AwsException` interface.
+  Version 3's `MssException` interface.
 * We advise against the use of any `Enum` class, since these will be removed.
   Instead, use the literal value to which the enum corresponds.
 * We advise against the use of any granular service classes, since these will be
   removed. Instead, catch the top-level service exception (e.g.,
-  `Aws\S3\Exception\S3Exception`) and use the `getAwsErrorCode()` method if you
+  `Mss\S3\Exception\S3Exception`) and use the `getMssErrorCode()` method if you
   need to know the granular error code.
 
 Upgrade from 2.6 to 2.7
@@ -70,7 +70,7 @@ If you would like to continue using the older 2011-02-01 API, you can configure 
 `CloudSearchClient`:
 
 ```php
-use Aws\CloudSearch\CloudSearchClient;
+use Mss\CloudSearch\CloudSearchClient;
 
 $client = CloudSearchClient::factory(array(
     'key'     => '<aws access key>',
@@ -226,7 +226,7 @@ easily fixed by switching back to the 2011-12-05 API by using the new `version` 
 the DynamoDB client.
 
 ```php
-use Aws\DynamoDb\DynamoDbClient;
+use Mss\DynamoDb\DynamoDbClient;
 
 $client = DynamoDbClient::factory(array(
     'key'     => '<aws access key>',
@@ -236,7 +236,7 @@ $client = DynamoDbClient::factory(array(
 ));
 ```
 
-If you are using a config file with `Aws\Common\Aws`, then you can modify your file like the following.
+If you are using a config file with `Mss\Common\Mss`, then you can modify your file like the following.
 
 ```json
 {

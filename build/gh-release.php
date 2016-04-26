@@ -1,7 +1,7 @@
 <?php
 /*
  * Creates a Github API release using the changelog contents. Attaches aws.zip
- * and aws.phar to the release.
+ * and mss.phar to the release.
  *
  * The OAUTH_TOKEN environment variable is required.
  *
@@ -14,14 +14,14 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Url;
 use Guzzle\Stream;
 
-$owner = 'aws';
-$repo = 'aws-sdk-php';
+$owner = 'mss';
+$repo = 'mss-sdk-php';
 $token = getenv('OAUTH_TOKEN') or die('An OAUTH_TOKEN environment variable is required');
 isset($argv[1]) or die('Usage php gh-release.php X.Y.Z');
 $tag = $argv[1];
 
-assert(file_exists(__DIR__ . '/artifacts/aws.zip'));
-assert(file_exists(__DIR__ . '/artifacts/aws.phar'));
+assert(file_exists(__DIR__ . '/artifacts/mss.zip'));
+assert(file_exists(__DIR__ . '/artifacts/mss.phar'));
 
 // Grab and validate the tag annotation
 chdir(dirname(__DIR__));
@@ -50,15 +50,15 @@ $uploadUrl = Url::factory($url);
 $uploadUrl->setHost('uploads.github.com');
 
 $client->post(
-    $uploadUrl . '/assets?name=aws.zip',
+    $uploadUrl . '/assets?name=mss.zip',
     array('Content-Type' => 'application/zip'),
-    fopen(__DIR__ . '/artifacts/aws.zip', 'r')
+    fopen(__DIR__ . '/artifacts/mss.zip', 'r')
 )->send();
 
 $client->post(
-    $uploadUrl . '/assets?name=aws.phar',
+    $uploadUrl . '/assets?name=mss.phar',
     array('Content-Type' => 'application/phar'),
-    fopen(__DIR__ . '/artifacts/aws.phar', 'r')
+    fopen(__DIR__ . '/artifacts/mss.phar', 'r')
 )->send();
 
 echo "Release successfully published to: $url\n";

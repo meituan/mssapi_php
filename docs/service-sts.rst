@@ -43,7 +43,7 @@ from AWS STS directly.
 
 .. code-block:: php
 
-    use Aws\S3\S3Client;
+    use Mss\S3\S3Client;
 
     $result = $client->getSessionToken();
 
@@ -59,8 +59,8 @@ You can also construct a ``Credentials`` object and use that when instantiating 
 
 .. code-block:: php
 
-    use Aws\Common\Credentials\Credentials;
-    use Aws\S3\S3Client;
+    use Mss\Common\Credentials\Credentials;
+    use Mss\S3\S3Client;
 
     $result = $client->getSessionToken();
 

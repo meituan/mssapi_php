@@ -15,11 +15,11 @@ Factory method
 ~~~~~~~~~~~~~~
 
 Similar to the way other service clients are used, you can instantiate the ``CloudSearchDomainClient`` with the
-``Aws\CloudSearchDomain\CloudSearchDomainClient::factory()`` method.
+``Mss\CloudSearchDomain\CloudSearchDomainClient::factory()`` method.
 
 .. code-block:: php
 
-    use Aws\CloudSearchDomain\CloudSearchDomainClient;
+    use Mss\CloudSearchDomain\CloudSearchDomainClient;
 
     $client = CloudSearchDomainClient::factory(array(
         'profile'  => '<profile in your aws credentials file>',
@@ -29,7 +29,7 @@ Similar to the way other service clients are used, you can instantiate the ``Clo
 The ``CloudSearchDomainClient`` is unlike other clients, because it does not require you to provide a region. Instead,
 you must provide the ``endpoint`` option, which represents the domain's endpoint. Domain endpoints are unique to each
 domain, and you can get it using the `DescribeDomains operation
-<http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Aws.CloudSearch.CloudSearchClient.html#_describeDomains>`_ of the
+<http://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Mss.CloudSearch.CloudSearchClient.html#_describeDomains>`_ of the
 :doc:`Amazon CloudSearch configuration client<service-cloudsearch>`.
 
 Service builder
@@ -41,10 +41,10 @@ all clients so that you only have to specify your settings once.
 
 .. code-block:: php
 
-    use Aws\Common\Aws;
+    use Mss\Common\Mss;
 
     // Create a service builder using a configuration file
-    $aws = Aws::factory('/path/to/my_config.json');
+    $aws = Mss::factory('/path/to/my_config.json');
 
     // Get the client from the builder
     $client = $aws->get('CloudSearchDomain');
@@ -71,7 +71,7 @@ argument.
 
 .. code-block:: php
 
-    use Aws\CloudSearch\CloudSearchClient;
+    use Mss\CloudSearch\CloudSearchClient;
 
     $configClient = CloudSearchClient::factory(array(
         'profile' => '<profile in your aws credentials file>',

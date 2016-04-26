@@ -27,11 +27,11 @@ Simply download a more up to date CA bundle somewhere on your system and instruc
 SDK to use that CA bundle rather than the default. You can configure the SDK to
 use a more up to date CA bundle by specifying the ``ssl.certificate_authority``
 in a client's factory method or the configuration settings used with
-``Aws\Common\Aws``.
+``Mss\Common\Mss``.
 
 .. code-block:: php
 
-    $aws = Aws\Common\Aws::factory(array(
+    $aws = Mss\Common\Mss::factory(array(
         'region' => 'us-west-2',
         'ssl.certificate_authority' => '/path/to/updated/cacert.pem'
     ));
@@ -52,7 +52,7 @@ You can disable SSL by setting the ``scheme`` parameter in a client factory meth
 
 .. code-block:: php
 
-    $client = Aws\DynamoDb\DynamoDbClient::factory(array(
+    $client = Mss\DynamoDb\DynamoDbClient::factory(array(
         'region' => 'us-west-2',
         'scheme' => 'http'
     ));
@@ -188,7 +188,7 @@ change.
 Why am I seeing a "Cannot redeclare class" error?
 -------------------------------------------------
 
-We have observed this error a few times when using the ``aws.phar`` from the CLI with APC enabled. This is due to some
+We have observed this error a few times when using the ``mss.phar`` from the CLI with APC enabled. This is due to some
 kind of issue with phars and APC. Luckily there are a few ways to get around this. Please choose the one that makes the
 most sense for your environment and application.
 
@@ -201,13 +201,13 @@ most sense for your environment and application.
 What is an InstanceProfileCredentialsException?
 -----------------------------------------------
 
-If you are seeing an ``Aws\Common\Exception\InstanceProfileCredentialsException`` while using the SDK, this means that
+If you are seeing an ``Mss\Common\Exception\InstanceProfileCredentialsException`` while using the SDK, this means that
 the SDK was not provided with any credentials.
 
 If you instantiate a client *without* credentials, on the first time that you perform a service operation, the SDK will
 attempt to find credentials. It first checks in some specific environment variables, then it looks for instance profile
 credentials, which are only available on configured Amazon EC2 instances. If absolutely no credentials are provided or
-found, an ``Aws\Common\Exception\InstanceProfileCredentialsException`` is thrown.
+found, an ``Mss\Common\Exception\InstanceProfileCredentialsException`` is thrown.
 
 If you are seeing this error and you are intending to use instance profile credentials, then you need to make sure that
 the Amazon EC2 instance that the SDK is running on is configured with an appropriate IAM role.

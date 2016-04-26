@@ -77,7 +77,7 @@ with the phar file are the following required and suggested libraries:
 You can download specific versions of a packaged Phar from https://github.com/aws/aws-sdk-php/releases
 and simply include it in your scripts to get started::
 
-    require '/path/to/aws.phar';
+    require '/path/to/mss.phar';
 
 .. note::
 
@@ -110,7 +110,7 @@ To get started, you must download a specific version of the zip file from
 https://github.com/aws/aws-sdk-php/releases, unzip it into your
 project to a location of your choosing, and include the autoloader::
 
-    require '/path/to/aws-autoloader.php';
+    require '/path/to/mss-autoloader.php';
 
 Alternatively, you can write your own autoloader or use an existing one from your project.
 

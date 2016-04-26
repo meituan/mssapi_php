@@ -14,7 +14,7 @@ Please submit any [issues][] or [pull requests][pull-requests] through GitHub.
 3. We maintain a high percentage of code coverage in our unit tests. If you make changes to the code, please add,
    update, and/or remove unit (and integration) tests as appropriate.
 4. We may choose not to accept pull requests that change service descriptions (e.g., files like
-   `src/Aws/OpsWorks/Resources/opsworks-2013-02-18.php`). We generate these files based on our internal knowledge of
+   `src/Mss/OpsWorks/Resources/opsworks-2013-02-18.php`). We generate these files based on our internal knowledge of
    the AWS services. If there is something incorrect with or missing from a service description, it may be more
    appropriate to [submit an issue][issues]. We *will*, however, consider pull requests affecting service descriptions,
    if the changes are related to **Iterator** or **Waiter** configurations (e.g. [PR #84][pr-84]).
@@ -31,7 +31,7 @@ unsure if your idea is something we would be open to, please ask us (open a tick
 forums, etc.) Specifically, here are a few things that we would appreciate help on:
 
 1. **Waiters** – Waiter configurations are located in the service descriptions. You can also create concrete waiters
-   within the `Aws\*\Waiter` namespace of a service if the logic of the waiter absolutely cannot be defined using waiter
+   within the `Mss\*\Waiter` namespace of a service if the logic of the waiter absolutely cannot be defined using waiter
    configuration. There are many waiters that we currently provide, but many that we do not. Please let us know if you
    have any questions about creating waiter configurations.
 2. **Docs** – Our [User Guide][user-guide] is an ongoing project, and we would greatly appreciate contributions. The

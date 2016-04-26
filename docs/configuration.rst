@@ -10,15 +10,15 @@ Configuration files
 How configuration files work
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When passing an array of parameters to the first argument of ``Aws\Common\Aws::factory()``, the service builder loads
-the default ``aws-config.php`` file and merges the array of shared parameters into the default configuration.
+When passing an array of parameters to the first argument of ``Mss\Common\Mss::factory()``, the service builder loads
+the default ``mss-config.php`` file and merges the array of shared parameters into the default configuration.
 
-Excerpt from ``src/Aws/Common/Resources/aws-config.php``:
+Excerpt from ``src/Mss/Common/Resources/mss-config.php``:
 
 .. code-block:: php
 
     <?php return array(
-        'class' => 'Aws\Common\Aws',
+        'class' => 'Mss\Common\Mss',
         'services' => array(
             'default_settings' => array(
                 'params' => array()
@@ -26,22 +26,22 @@ Excerpt from ``src/Aws/Common/Resources/aws-config.php``:
             'autoscaling' => array(
                 'alias'   => 'AutoScaling',
                 'extends' => 'default_settings',
-                'class'   => 'Aws\AutoScaling\AutoScalingClient'
+                'class'   => 'Mss\AutoScaling\AutoScalingClient'
             ),
             'cloudformation' => array(
                 'alias'   => 'CloudFormation',
                 'extends' => 'default_settings',
-                'class'   => 'Aws\CloudFormation\CloudFormationClient'
+                'class'   => 'Mss\CloudFormation\CloudFormationClient'
             ),
         // ...
     );
 
-The ``aws-config.php`` file provides default configuration settings for associating client classes with service names.
-This file tells the ``Aws\Common\Aws`` service builder which class to instantiate when you reference a client by name.
+The ``mss-config.php`` file provides default configuration settings for associating client classes with service names.
+This file tells the ``Mss\Common\Mss`` service builder which class to instantiate when you reference a client by name.
 
 You can supply your credential profile (see :ref:`credential_profiles`) and other configuration settings to the service
 builder so that each client is instantiated with those settings. To do this, pass an array of settings (including your
-``profile``) into the first argument of ``Aws\Common\Aws::factory()``.
+``profile``) into the first argument of ``Mss\Common\Mss::factory()``.
 
 .. code-block:: php
 
@@ -49,9 +49,9 @@ builder so that each client is instantiated with those settings. To do this, pas
 
     require 'vendor/autoload.php';
 
-    use Aws\Common\Aws;
+    use Mss\Common\Mss;
 
-    $aws = Aws::factory(array(
+    $aws = Mss::factory(array(
         'profile' => 'my_profile',
         'region'  => 'us-east-1',
     ));
@@ -61,7 +61,7 @@ Using a custom configuration file
 
 You can use a custom configuration file that allows you to create custom named clients with pre-configured settings.
 
-Let's say you want to use the default ``aws-config.php`` settings, but you want to supply your keys using a
+Let's say you want to use the default ``mss-config.php`` settings, but you want to supply your keys using a
 configuration file. Each service defined in the default configuration file extends from ``default_settings`` service.
 You can create a custom configuration file that extends the default configuration file and add credentials to the
 ``default_settings`` service:
@@ -84,7 +84,7 @@ Make sure to include the ``'includes' => array('_aws'),`` line in your configura
 default configuration that makes all of the service clients available to the service builder. If this is missing, then
 you will get an exception when trying to retrieve a service client.
 
-You can use your custom configuration file with the ``Aws\Common\Aws`` class by passing the full path to the
+You can use your custom configuration file with the ``Mss\Common\Mss`` class by passing the full path to the
 configuration file in the first argument of the ``factory()`` method:
 
 .. code-block:: php
@@ -93,9 +93,9 @@ configuration file in the first argument of the ``factory()`` method:
 
     require 'vendor/autoload.php';
 
-    use Aws\Common\Aws;
+    use Mss\Common\Mss;
 
-    $aws = Aws::factory('/path/to/custom/config.php');
+    $aws = Mss::factory('/path/to/custom/config.php');
 
 You can create custom named services if you need to, for example, use multiple accounts/credentials with the
 same service:
@@ -160,7 +160,7 @@ Options                   Description
 ``token.ttd``             The UNIX timestamp for when the provided credentials expire.
 
 ``credentials``           An associative array containing the "key", "secret", and optional "token" key value pairs,
-                          or a credentials object (``Aws\Common\Credentials\CredentialsInterface``) can be provided
+                          or a credentials object (``Mss\Common\Credentials\CredentialsInterface``) can be provided
                           instead explicit access keys and tokens.
 
 ``key``                   An AWS access key ID. Unless you are setting temporary credentials provided by AWS STS, it is
@@ -207,7 +207,7 @@ Options                   Description
 
 ``signature``             Overrides the signature used by the client. Clients will always choose an appropriate default
                           signature. However, it can be useful to override this with a custom setting. This can be set
-                          to "v4", "v3https", "v2" or an instance of ``Aws\Common\Signature\SignatureInterface``.
+                          to "v4", "v3https", "v2" or an instance of ``Mss\Common\Signature\SignatureInterface``.
 
 ``signature.service``     The signature service scope for Signature V4. See :ref:`custom_endpoint`.
 
@@ -224,7 +224,7 @@ Options                            Description
                                    specific certificate file, a string pointing to a directory to use multiple
                                    certificates, or false to disable SSL validation (not recommended).
 
-                                   When using the ``aws.phar``, the bundled SSL certificate will be extracted to your
+                                   When using the ``mss.phar``, the bundled SSL certificate will be extracted to your
                                    system's temp folder, and each time a client is created an MD5 check will be
                                    performed to ensure the integrity of the certificate.
 
@@ -264,7 +264,7 @@ Here's an example of creating an Amazon DynamoDB client that uses the ``us-west-
 
     require 'vendor/autoload.php';
 
-    use Aws\DynamoDb\DynamoDbClient;
+    use Mss\DynamoDb\DynamoDbClient;
 
     // Create a client that uses the us-west-1 region
     $client = DynamoDbClient::factory(array(
@@ -291,7 +291,7 @@ Here's an example of creating an Amazon DynamoDB client that uses a completely c
 
     require 'vendor/autoload.php';
 
-    use Aws\DynamoDb\DynamoDbClient;
+    use Mss\DynamoDb\DynamoDbClient;
 
     // Create a client that that contacts a completely customized base URL
     $client = DynamoDbClient::factory(array(
@@ -320,7 +320,7 @@ Request options are passed to a client through the client's factory method:
 
 .. code-block:: php
 
-    use Aws\S3\S3Client;
+    use Mss\S3\S3Client;
 
     $s3 = S3Client::factory(array(
         'request.options' => array(

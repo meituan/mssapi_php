@@ -19,7 +19,7 @@ First you need to create a client object using one of the following techniques.
 Factory method
 ~~~~~~~~~~~~~~
 
-The easiest way to get up and running quickly is to use the ``Aws\{{namespace}}\{{namespace}}Client::factory()`` method
+The easiest way to get up and running quickly is to use the ``Mss\{{namespace}}\{{namespace}}Client::factory()`` method
 and provide your credential profile (via the ``profile`` option), which identifies the set of credentials you want to
 use from your ``~/.aws/credentials`` file (see :ref:`credential_profiles`).
 
@@ -31,7 +31,7 @@ reference.
 
 .. code-block:: php
 
-    use Aws\{{namespace}}\{{namespace}}Client;
+    use Mss\{{namespace}}\{{namespace}}Client;
 
     $client = {{namespace}}Client::factory(array(
         'profile' => '<profile in your aws credentials file>'{% if not globalEndpoint -%},
@@ -59,10 +59,10 @@ clients so that you only have to specify your settings once.
 
 .. code-block:: php
 
-    use Aws\Common\Aws;
+    use Mss\Common\Mss;
 
     // Create a service builder using a configuration file
-    $aws = Aws::factory('/path/to/my_config.json');
+    $aws = Mss::factory('/path/to/my_config.json');
 
     // Get the client from the builder by namespace
     {% if specifiedApiVersion -%}
