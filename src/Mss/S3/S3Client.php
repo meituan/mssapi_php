@@ -134,6 +134,18 @@ class S3Client extends AbstractClient
      */
     public static function factory($config = array())
     {
+        $s3_image = null;
+        if (array_key_exists("image_endpoint", $config)) {
+            $image_config = $config;
+            $image_config["endpoint"] = $config["image_endpoint"];
+            # if (!array_key_exists("endpoint", $config)) {
+            #     $config["endpoint"] = $config["image_endpoint"];
+            # }
+            unset($config["image_endpoint"]);
+            unset($image_config["image_endpoint"]);
+
+            $s3_image = S3Client::factory($image_config);
+        }
         $exceptionParser = new S3ExceptionParser();
 
         // Configure the custom exponential backoff plugin for retrying S3 specific errors
@@ -177,7 +189,7 @@ class S3Client extends AbstractClient
                     ),
                 )
             ))
-            ->build();
+            ->build($s3_image);
 
         // Use virtual hosted buckets when possible
         $client->addSubscriber(new BucketStyleListener());
@@ -322,6 +334,31 @@ class S3Client extends AbstractClient
         }
 
         return $expires ? $this->createPresignedUrl($request, $expires) : $request->getUrl();
+    }
+
+    /**
+     * Refers to function getObjectUrl's description
+     */
+    public function getImageObjectUrl($bucket, $key, $expires = null, array $args = array())
+    {
+        if ($this->s3_image === null) {
+            throw new RuntimeException ('The s3 client of image is null. You should set the image_endpoint firstly when using function getImageObjectUrl.');
+        }
+
+        return $this->s3_image->getObjectUrl($bucket, $key, $expires, $args);
+    }
+
+    /**
+     * Get the image object, when setting the image_endpoint
+     * @param array $args  Arguments to get image object, includes keys:"Bucket", "Key", "SaveAs"; The three keys are both necessary and case sensitive; Refers to function getObject's description
+     */
+    public function getImageObject($args = array())
+    {
+        if ($this->s3_image === null) {
+            throw new RuntimeException ('The s3 client of image is null. You should set the image_endpoint firstly when using function getImageObject.');
+        }
+
+        $this->s3_image->getObject($args);
     }
 
     /**
