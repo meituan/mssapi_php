@@ -482,6 +482,51 @@ return array (
                 ),
             ),
         ),
+        'DeleteBucketCors' => array(
+            'httpMethod' => 'DELETE',
+            'uri' => '/{Bucket}?cors',
+            'class' => 'Mss\\S3\\Command\\S3Command',
+            'responseClass' => 'DeleteBucketCorsOutput',
+            'responseType' => 'model',
+            'documentationUrl' => 'http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketDELETEcors.html',
+            'parameters' => array(
+                'Bucket' => array(
+                    'required' => true,
+                    'type' => 'string',
+                    'location' => 'uri',
+                ),
+            ),
+        ),
+        'DeleteBucketLifecycle' => array(
+            'httpMethod' => 'DELETE',
+            'uri' => '/{Bucket}?lifecycle',
+            'class' => 'Mss\\S3\\Command\\S3Command',
+            'responseClass' => 'DeleteBucketLifecycleOutput',
+            'responseType' => 'model',
+            'documentationUrl' => 'http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketDELETElifecycle.html',
+            'parameters' => array(
+                'Bucket' => array(
+                    'required' => true,
+                    'type' => 'string',
+                    'location' => 'uri',
+                ),
+            ),
+        ),
+        'DeleteBucketPolicy' => array(
+            'httpMethod' => 'DELETE',
+            'uri' => '/{Bucket}?policy',
+            'class' => 'Mss\\S3\\Command\\S3Command',
+            'responseClass' => 'DeleteBucketPolicyOutput',
+            'responseType' => 'model',
+            'documentationUrl' => 'http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketDELETEpolicy.html',
+            'parameters' => array(
+                'Bucket' => array(
+                    'required' => true,
+                    'type' => 'string',
+                    'location' => 'uri',
+                ),
+            ),
+        ),
         'DeleteObject' => array(
             'httpMethod' => 'DELETE',
             'uri' => '/{Bucket}{/Key*}',
@@ -606,6 +651,25 @@ return array (
             'responseClass' => 'GetBucketCorsOutput',
             'responseType' => 'model',
             'documentationUrl' => 'http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGETcors.html',
+            'parameters' => array(
+                'Bucket' => array(
+                    'required' => true,
+                    'type' => 'string',
+                    'location' => 'uri',
+                ),
+                'command.expects' => array(
+                    'static' => true,
+                    'default' => 'application/xml',
+                ),
+            ),
+        ),
+        'GetBucketLifecycle' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/{Bucket}?lifecycle',
+            'class' => 'Mss\\S3\\Command\\S3Command',
+            'responseClass' => 'GetBucketLifecycleOutput',
+            'responseType' => 'model',
+            'documentationUrl' => 'http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGETlifecycle.html',
             'parameters' => array(
                 'Bucket' => array(
                     'required' => true,
@@ -1253,6 +1317,195 @@ return array (
                 ),
             ),
         ),
+	'PutBucketCors' => array(
+            'httpMethod' => 'PUT',
+            'uri' => '/{Bucket}?cors',
+            'class' => 'Mss\\S3\\Command\\S3Command',
+            'responseClass' => 'PutBucketCorsOutput',
+            'responseType' => 'model',
+            'documentationUrl' => 'http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTcors.html',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'CORSConfiguration',
+                    'namespaces' => array(
+                        'http://s3.amazonaws.com/doc/2006-03-01/',
+                    ),
+                ),
+                'contentMd5' => true,
+            ),
+            'parameters' => array(
+                'Bucket' => array(
+                    'required' => true,
+                    'type' => 'string',
+                    'location' => 'uri',
+                ),
+                'CORSRules' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'data' => array(
+                        'xmlFlattened' => true,
+                    ),
+                    'items' => array(
+                        'name' => 'CORSRule',
+                        'type' => 'object',
+                        'sentAs' => 'CORSRule',
+                        'properties' => array(
+                            'AllowedHeaders' => array(
+                                'type' => 'array',
+                                'data' => array(
+                                    'xmlFlattened' => true,
+                                ),
+                                'items' => array(
+                                    'name' => 'AllowedHeader',
+                                    'type' => 'string',
+                                    'sentAs' => 'AllowedHeader',
+                                ),
+                            ),
+                            'AllowedMethods' => array(
+                                'type' => 'array',
+                                'data' => array(
+                                    'xmlFlattened' => true,
+                                ),
+                                'items' => array(
+                                    'name' => 'AllowedMethod',
+                                    'type' => 'string',
+                                    'sentAs' => 'AllowedMethod',
+                                ),
+                            ),
+                            'AllowedOrigins' => array(
+                                'type' => 'array',
+                                'data' => array(
+                                    'xmlFlattened' => true,
+                                ),
+                                'items' => array(
+                                    'name' => 'AllowedOrigin',
+                                    'type' => 'string',
+                                    'sentAs' => 'AllowedOrigin',
+                                ),
+                            ),
+                            'ExposeHeaders' => array(
+                                'type' => 'array',
+                                'data' => array(
+                                    'xmlFlattened' => true,
+                                ),
+                                'items' => array(
+                                    'name' => 'ExposeHeader',
+                                    'type' => 'string',
+                                    'sentAs' => 'ExposeHeader',
+                                ),
+                            ),
+                            'MaxAgeSeconds' => array(
+                                'type' => 'numeric',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+	'PutBucketLifecycle' => array(
+            'httpMethod' => 'PUT',
+            'uri' => '/{Bucket}?lifecycle',
+            'class' => 'Mss\\S3\\Command\\S3Command',
+            'responseClass' => 'PutBucketLifecycleOutput',
+            'responseType' => 'model',
+            'documentationUrl' => 'http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTlifecycle.html',
+            'data' => array(
+                'xmlRoot' => array(
+                    'name' => 'LifecycleConfiguration',
+                    'namespaces' => array(
+                        'http://s3.amazonaws.com/doc/2006-03-01/',
+                    ),
+                ),
+                'contentMd5' => true,
+            ),
+            'parameters' => array(
+                'Bucket' => array(
+                    'required' => true,
+                    'type' => 'string',
+                    'location' => 'uri',
+                ),
+                'Rules' => array(
+                    'required' => true,
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'data' => array(
+                        'xmlFlattened' => true,
+                    ),
+                    'items' => array(
+                        'name' => 'Rule',
+                        'type' => 'object',
+                        'sentAs' => 'Rule',
+                        'properties' => array(
+                            'Expiration' => array(
+                                'type' => 'object',
+                                'properties' => array(
+                                    'Date' => array(
+                                        'type' => array(
+                                            'object',
+                                            'string',
+                                            'integer',
+                                        ),
+                                        'format' => 'date-time',
+                                    ),
+                                   'Days' => array(
+                                        'type' => 'numeric',
+                                    ),
+                                ),
+                            ),
+                            'ID' => array(
+                                'type' => 'string',
+                            ),
+                            'Prefix' => array(
+                                'required' => true,
+                                'type' => 'string',
+                            ),
+                            'Status' => array(
+                                'required' => true,
+                                'type' => 'string',
+                            ),
+                            'Transition' => array(
+                                'type' => 'object',
+                                'properties' => array(
+                                    'Date' => array(
+                                        'type' => array(
+                                            'object',
+                                            'string',
+                                            'integer',
+                                        ),
+                                        'format' => 'date-time',
+                                    ),
+                                    'Days' => array(
+                                        'type' => 'numeric',
+                                    ),
+                                    'StorageClass' => array(
+                                        'type' => 'string',
+                                    ),
+                                ),
+                            ),
+                            'NoncurrentVersionTransition' => array(
+                                'type' => 'object',
+                                'properties' => array(
+                                    'NoncurrentDays' => array(
+                                        'type' => 'numeric',
+                                    ),
+                                    'StorageClass' => array(
+                                        'type' => 'string',
+                                    ),
+                                ),
+                            ),
+                            'NoncurrentVersionExpiration' => array(
+                                'type' => 'object',
+                                'properties' => array(
+                                    'NoncurrentDays' => array(
+                                        'type' => 'numeric',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
         'PutObject' => array(
             'httpMethod' => 'PUT',
             'uri' => '/{Bucket}{/Key*}',
@@ -1712,6 +1965,16 @@ return array (
                 ),
             ),
         ),
+        'DeleteBucketLifecycleOutput' => array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array(
+                    'location' => 'header',
+                    'sentAs' => 'x-amz-request-id',
+                ),
+            ),
+        ),
         'DeleteObjectOutput' => array(
             'type' => 'object',
             'additionalProperties' => true,
@@ -1856,6 +2119,160 @@ return array (
                             ),
                             'Permission' => array(
                                 'type' => 'string',
+                            ),
+                        ),
+                    ),
+                ),
+                'RequestId' => array(
+                    'location' => 'header',
+                    'sentAs' => 'x-amz-request-id',
+                ),
+            ),
+        ),
+        'GetBucketCorsOutput' => array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'CORSRules' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'sentAs' => 'CORSRule',
+                    'data' => array(
+                        'xmlFlattened' => true,
+                    ),
+                    'items' => array(
+                        'name' => 'CORSRule',
+                        'type' => 'object',
+                        'sentAs' => 'CORSRule',
+                        'properties' => array(
+                            'AllowedHeaders' => array(
+                                'type' => 'array',
+                                'sentAs' => 'AllowedHeader',
+                                'data' => array(
+                                    'xmlFlattened' => true,
+                                ),
+                                'items' => array(
+                                    'name' => 'AllowedHeader',
+                                    'type' => 'string',
+                                    'sentAs' => 'AllowedHeader',
+                                ),
+                            ),
+                            'AllowedMethods' => array(
+                                'type' => 'array',
+                                'sentAs' => 'AllowedMethod',
+                                'data' => array(
+                                    'xmlFlattened' => true,
+                                ),
+                                'items' => array(
+                                    'name' => 'AllowedMethod',
+                                    'type' => 'string',
+                                    'sentAs' => 'AllowedMethod',
+                                ),
+                            ),
+                            'AllowedOrigins' => array(
+                                'type' => 'array',
+                                'sentAs' => 'AllowedOrigin',
+                                'data' => array(
+                                    'xmlFlattened' => true,
+                                ),
+                                'items' => array(
+                                    'name' => 'AllowedOrigin',
+                                    'type' => 'string',
+                                    'sentAs' => 'AllowedOrigin',
+                                ),
+                            ),
+                            'ExposeHeaders' => array(
+                                'type' => 'array',
+                                'sentAs' => 'ExposeHeader',
+                                'data' => array(
+                                    'xmlFlattened' => true,
+                                ),
+                                'items' => array(
+                                    'name' => 'ExposeHeader',
+                                    'type' => 'string',
+                                    'sentAs' => 'ExposeHeader',
+                                ),
+                            ),
+                            'MaxAgeSeconds' => array(
+                                'type' => 'numeric',
+                            ),
+                        ),
+                    ),
+                ),
+                'RequestId' => array(
+                    'location' => 'header',
+                    'sentAs' => 'x-amz-request-id',
+                ),
+            ),
+        ),
+        'GetBucketLifecycleOutput' => array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'Rules' => array(
+                    'type' => 'array',
+                    'location' => 'xml',
+                    'sentAs' => 'Rule',
+                    'data' => array(
+                        'xmlFlattened' => true,
+                    ),
+                    'items' => array(
+                        'name' => 'Rule',
+                        'type' => 'object',
+                        'sentAs' => 'Rule',
+                        'properties' => array(
+                            'Expiration' => array(
+                                'type' => 'object',
+                                'properties' => array(
+                                    'Date' => array(
+                                        'type' => 'string',
+                                    ),
+                                    'Days' => array(
+                                        'type' => 'numeric',
+                                    ),
+                                ),
+                            ),
+                            'ID' => array(
+                                'type' => 'string',
+                            ),
+                            'Prefix' => array(
+                                'type' => 'string',
+                            ),
+                            'Status' => array(
+                                'type' => 'string',
+                            ),
+                            'Transition' => array(
+                                'type' => 'object',
+                                'properties' => array(
+                                    'Date' => array(
+                                        'type' => 'string',
+                                    ),
+                                    'Days' => array(
+                                        'type' => 'numeric',
+                                    ),
+                                    'StorageClass' => array(
+                                        'type' => 'string',
+                                    ),
+                                ),
+                            ),
+                            'NoncurrentVersionTransition' => array(
+                                'type' => 'object',
+                                'properties' => array(
+                                    'NoncurrentDays' => array(
+                                        'type' => 'numeric',
+                                    ),
+                                    'StorageClass' => array(
+                                        'type' => 'string',
+                                    ),
+                                ),
+                            ),
+                            'NoncurrentVersionExpiration' => array(
+                                'type' => 'object',
+                                'properties' => array(
+                                    'NoncurrentDays' => array(
+                                        'type' => 'numeric',
+                                    ),
+                                ),
                             ),
                         ),
                     ),
@@ -2720,6 +3137,26 @@ return array (
             ),
         ),
         'PutBucketAclOutput' => array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array(
+                    'location' => 'header',
+                    'sentAs' => 'x-amz-request-id',
+                ),
+            ),
+        ),
+        'PutBucketCorsOutput' => array(
+            'type' => 'object',
+            'additionalProperties' => true,
+            'properties' => array(
+                'RequestId' => array(
+                    'location' => 'header',
+                    'sentAs' => 'x-amz-request-id',
+                ),
+            ),
+        ),
+        'PutBucketLifecycleOutput' => array(
             'type' => 'object',
             'additionalProperties' => true,
             'properties' => array(
